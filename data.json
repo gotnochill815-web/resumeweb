@@ -1,0 +1,111 @@
+{
+  "basics": {
+    "name": "Mohit Arora",
+    "label": "Software Developer",
+    "location": "India",
+    "email": "mohitarora321123@gmail.com",
+    "phone": "+91-7986811787",
+    "website": "https://portfolio.example.com",
+    "linkedin": "https://linkedin.com/in/mohitarora",
+    "github": "https://github.com/mohitarora"
+  },
+
+  "summary": "Experienced Software Developer with a robust background in full-stack development, specializing in Laravel, React, and modern web technologies. Proven track record of developing scalable applications and effective system designs.",
+
+  "coreCompetencies": [
+    "Full-Stack Development",
+    "Laravel",
+    "React",
+    "System Design",
+    "Cloud DevOps"
+  ],
+
+  "skills": [
+    { "name": "Frameworks – Laravel, React, Bootstrap, Express.js, Tailwind CSS, React Native, Electron, Flutter, Django, jQuery, GSAP" },
+    { "name": "Languages – C++, Python, JavaScript, PHP" },
+    { "name": "Databases – MySQL, PostgreSQL, MongoDB" },
+    { "name": "Cloud & DevOps – AWS, Docker" },
+    { "name": "Build & Tooling – Git" },
+    { "name": "API Standards & Protocols – REST" }
+  ],
+
+  "experience": [
+    {
+      "company": "Alive Hire",
+      "position": "Technical Software Lead",
+      "startDate": "May 2025",
+      "endDate": "Present",
+      "summary": "Developed key modules for recruiters, employers, and vendors, enhancing platform functionality. Currently enhancing resume optimization features to improve user engagement.",
+      "highlights": [
+        "Keywords: AI Recruitment, SaaS, Full-Cycle Development"
+      ]
+    },
+    {
+      "company": "Freelance Software Developer",
+      "position": "Freelance Software Developer",
+      "startDate": "Feb 2025",
+      "endDate": "Present",
+      "summary": "Developed a matrimonial platform and a Kanban board app, enhancing client business processes.",
+      "highlights": [
+        "Keywords: Laravel, Full-Stack Development, Client Projects"
+      ]
+    },
+    {
+      "company": "Jobeyze Canada",
+      "position": "Full Stack Developer",
+      "startDate": "October 7, 2024",
+      "endDate": "April 7, 2025",
+      "summary": "Integrated advanced features like resume and cover letter generation, and intelligent candidate selection.",
+      "highlights": [
+        "Keywords: AI Job Automation, Laravel, React"
+      ]
+    },
+    {
+      "company": "Bytecraft Studios",
+      "position": "Full Stack Developer",
+      "startDate": "June 23, 2024",
+      "endDate": "September 21, 2024",
+      "summary": "Created automated payment solutions and multi-role dashboards for Poonam Enterprises. Enhanced a MERN marketplace with multi-language and currency capabilities.",
+      "highlights": [
+        "Keywords: Web Development, Laravel, React, MERN"
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "institution": "Indian Institute of Information Technology, Manipur",
+      "area": "B.Tech in Computer Science and Engineering",
+      "startDate": "2021",
+      "endDate": "Expected 2025",
+      "gpa": "8.3"
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "AudioHub",
+      "stack": "Interactive E-Commerce Platform | Vue.js, Quasar, Node.js, Express.js, E-Commerce",
+      "description": "Developed AudioHub, an e-commerce platform for premium audio products with a responsive UI.",
+      "highlights": [
+        "Launched a recommendation system, boosting user retention by 60% and conversion rates by 45%.",
+        "Implemented a user-friendly recommendation system, increasing retention by 60% and conversions by 45%."
+      ]
+    },
+    {
+      "name": "BookSphere",
+      "stack": "Modern Library Management System | MERN Stack, Library Management, QR Code",
+      "description": "Built a system for library management with QR code generation and fine collection via UPI. Enabled ISBN-based data extraction for efficient book tracking and organization.",
+      "highlights": [
+        "Developed QR code generation and fine collection features, streamlining library operations."
+      ]
+    }
+  ],
+
+  "certifications": [
+    {
+      "title": "Full Stack Development (MERN Laravel)",
+      "year": "2023"
+    }
+  ]
+}

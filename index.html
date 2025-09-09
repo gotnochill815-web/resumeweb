@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume — Compact PDF Style</title>
+
+  <!-- Bootstrap utilities -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* A4 print settings — tighter margins */
+    @page { size: A4; margin: 8mm 10mm; } /* top/bottom 8mm, left/right 10mm */
+
+    @media print {
+      body { -webkit-print-color-adjust: exact; }
+      .no-print { display: none !important; }
+    }
+
+    /* Base typography */
+    body {
+      font-family: "Times New Roman", Georgia, serif;
+      color: #111;
+      background: #fff;
+    }
+
+    /* Outer resume card — reduced padding */
+    .resume {
+      max-width: 780px;
+      margin: 6px auto;
+      padding: 6px 10px; /* tightened */
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 4px;
+      background: white;
+    }
+
+    /* Header */
+    .hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .name { font-size: 20px; font-weight: 700; letter-spacing: 0.2px; margin-bottom: 2px; }
+    .role { font-size: 11.5px; color: #222; margin-bottom: 4px; }
+    .contact { text-align: right; font-size: 11px; line-height: 1.05; }
+    a { color: #0b5ed7; text-decoration: underline; }
+
+    /* Export controls */
+    .hdr-controls { display:flex; gap:8px; align-items:center; }
+
+    /* Section header with darker line */
+    .section-title {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.5px;
+      margin-top: 8px;   /* reduced */
+      margin-bottom: 3px;
+      padding-bottom: 2px;
+      border-bottom: 1.2px solid #333; /* dark divider */
+      page-break-before: avoid;
+      break-before: avoid;
+    }
+
+    /* Section wrapper to avoid unwanted page-splits */
+    .section {
+      page-break-inside: avoid;
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
+      margin-bottom: 6px;
+    }
+
+    /* Text blocks — tightened */
+    .muted { color: #333; font-size: 11.8px; margin-bottom: 3px; }
+    .muted.small { font-size: 10.8px; color: #444; margin-bottom: 3px; }
+
+    /* Experience */
+    .job { margin-bottom: 5px; page-break-inside: avoid; break-inside: avoid; }
+    .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .job-title { font-weight: 700; font-size: 12.2px; }
+    .job-company { font-weight: 600; color: #222; }
+    .job-dates { font-size: 10.8px; color: #444; min-width: 120px; text-align: right; white-space: nowrap; }
+    .job-summary { font-size: 11.8px; color: #333; margin: 2px 0 5px; }
+    .job ul { margin: 0 0 6px 16px; font-size: 11.8px; color: #222; line-height: 1.22; }
+    .job ul li { margin-bottom: 4px; }
+
+    /* Education */
+    .edu-row { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom: 6px; page-break-inside: avoid; }
+    .edu-institution { font-weight:700; font-size: 12px; }
+    .edu-meta { font-size: 10.8px; color:#444; text-align:right; min-width:120px; }
+
+    /* Core Competencies (inline) */
+    .competencies-inline { font-size: 11.8px; color: #333; margin-bottom: 6px; }
+    .competencies-inline span { margin-right: 6px; }
+
+    /* Skills grouped */
+    .skills-grid { display: block; margin-bottom: 6px; }
+    .skill-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 4px;
+      font-size: 11.8px;
+      color: #222;
+    }
+    .skill-line strong {
+      display: inline-block;
+      width: 140px; /* slightly narrower */
+      min-width: 100px;
+      font-weight: 700;
+      font-size: 11.8px;
+    }
+    .skill-line .skill-values {
+      flex: 1 1 auto;
+      line-height: 1.22;
+      color: #222;
+      font-size: 11.8px;
+    }
+
+    /* Projects: compact */
+    .project-block { margin-bottom: 6px; page-break-inside: avoid; break-inside: avoid; }
+    .project-title { font-weight: 700; font-size: 12px; margin-bottom: 2px; }
+    .project-sub { font-size: 10.8px; color: #444; margin-bottom: 3px; }
+    .project-desc { font-size: 11.8px; color: #333; margin-bottom: 5px; }
+
+    .project-block ul {
+      margin-top: 4px;
+      margin-bottom: 6px;
+      padding-left: 18px;
+      line-height: 1.18;
+    }
+    .project-block ul li {
+      font-size: 11.6px;
+      margin-bottom: 4px;
+    }
+
+    /* Certifications */
+    .cert-item { font-size: 11.8px; color:#222; margin-bottom:4px; }
+
+    /* Links footer */
+    .links { margin-top: 8px; font-size: 11.8px; color:#0b5ed7; }
+
+    /* Small print tweak to avoid breaking small lists */
+    @media print {
+      .resume { border: none; margin: 0; padding: 0; } /* resume padding already small; keep page margins */
+      ul { page-break-inside: avoid; break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="resume" id="resume">
+    <!-- Header -->
+    <header class="hdr" id="hdr">
+      <div>
+        <div class="name" id="name">Name Here</div>
+        <div class="role" id="role">Role / Title</div>
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px;">
+        <div class="hdr-controls">
+          <button class="btn btn-primary btn-sm no-print" id="btnExport" title="Export / Print PDF">Export to PDF</button>
+        </div>
+        <div class="contact" id="contact"></div>
+      </div>
+    </header>
+
+    <main id="content" class="mt-1"></main>
+
+    <div class="no-print mt-2 text-muted small">
+      Tip: Click <strong>Export to PDF</strong> or press <kbd>Ctrl</kbd> + <kbd>P</kbd>. For best results choose A4 and enable Background Graphics.
+    </div>
+  </div>
+
+  <script>
+  (function() {
+    function e(tag, cls = '', html = '') {
+      const el = document.createElement(tag);
+      if (cls) el.className = cls;
+      if (html !== undefined) el.innerHTML = html;
+      return el;
+    }
+
+    // ensure href is absolute (has protocol); if not, add https://
+    function ensureAbsoluteUrl(u) {
+      if (!u) return u;
+      if (/^(https?:\/\/|mailto:|tel:)/i.test(u)) return u;
+      return 'https://' + u;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('btnExport');
+      if (btn) btn.addEventListener('click', () => window.print());
+    });
+
+    // load data.json
+    fetch('data.json')
+      .then(r => r.json())
+      .then(data => renderResume(data))
+      .catch(err => {
+        document.getElementById('content').appendChild(e('div','text-danger','Error loading data.json'));
+        console.error(err);
+      });
+
+    // contact block with clickable absolute links
+    function renderContactBlock(basics) {
+      const lines = [];
+      if (basics.phone) lines.push(`<span>${basics.phone}</span>`);
+      if (basics.email) lines.push(`<a href="mailto:${basics.email}" target="_blank" rel="noopener noreferrer">${basics.email}</a>`);
+      if (basics.linkedin) {
+        const url = ensureAbsoluteUrl(basics.linkedin);
+        lines.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+      }
+      if (basics.website) {
+        const url = ensureAbsoluteUrl(basics.website);
+        lines.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">${url.replace(/^https?:\/\//, '')}</a>`);
+      }
+      return lines.join('<br>');
+    }
+
+    function renderSectionTitle(title) {
+      return e('div','section-title', title);
+    }
+
+    function renderSkillsAndInterests(data) {
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Skills'));
+
+      const grid = e('div','skills-grid');
+      if (data.skills && data.skills.length) {
+        data.skills.forEach(s => {
+          let parts = s.name.split('–');
+          if (parts.length === 1) parts = s.name.split('-');
+          if (parts.length === 1) {
+            grid.appendChild(e('div','skill-line', s.name));
+          } else {
+            const label = parts[0].trim();
+            const values = parts.slice(1).join('–').trim();
+            const line = e('div','skill-line');
+            line.appendChild(e('strong','', label));
+            line.appendChild(e('div','skill-values', values));
+            grid.appendChild(line);
+          }
+        });
+      }
+
+      if (data.interests && data.interests.length) {
+        grid.appendChild(e('div','muted small', 'Interests: ' + data.interests.join(', ')));
+      }
+
+      container.appendChild(grid);
+      return container;
+    }
+
+    function renderCoreCompetencies(items) {
+      if (!items || !items.length) return null;
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Core Competencies'));
+      const inline = e('div','competencies-inline');
+      inline.innerHTML = items.map(s => `<span>${s}</span>`).join('<span style="color:#999"> · </span>');
+      container.appendChild(inline);
+      return container;
+    }
+
+    function renderExperience(items) {
+      if (!items || !items.length) return null;
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Technical Experience'));
+      items.forEach(job => {
+        const jobBlock = e('div','job');
+        const head = e('div','job-head');
+        const left = e('div','');
+        left.appendChild(e('div','job-title', job.position || ''));
+        if (job.company) left.appendChild(e('div','muted small', job.company));
+        head.appendChild(left);
+        head.appendChild(e('div','job-dates', `${job.startDate || ''}${job.endDate ? ' — ' + job.endDate : ''}`));
+        jobBlock.appendChild(head);
+
+        if (job.summary) jobBlock.appendChild(e('div','job-summary', job.summary));
+
+        if (job.highlights && job.highlights.length) {
+          const ul = e('ul','');
+          job.highlights.forEach(h => ul.appendChild(e('li','',h)));
+          jobBlock.appendChild(ul);
+        }
+        container.appendChild(jobBlock);
+      });
+      return container;
+    }
+
+    function renderEducation(items) {
+      if (!items || !items.length) return null;
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Education'));
+      items.forEach(ed => {
+        const row = e('div','edu-row');
+        row.appendChild(e('div','edu-institution', ed.institution + (ed.area ? ' · ' + ed.area : '')));
+        row.appendChild(e('div','edu-meta', (ed.startDate||'') + ' — ' + (ed.endDate||'') + (ed.gpa ? ' · CGPA: '+ed.gpa : '')));
+        container.appendChild(row);
+      });
+      return container;
+    }
+
+    function renderProjects(items) {
+      if (!items || !items.length) return null;
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Personal Projects'));
+
+      items.forEach(p => {
+        const block = e('div','project-block');
+        if (p.name) block.appendChild(e('div','project-title', p.name));
+        if (p.stack) block.appendChild(e('div','project-sub', p.stack));
+        if (p.description) block.appendChild(e('div','project-desc', p.description));
+
+        if (p.highlights && p.highlights.length) {
+          const ul = e('ul','');
+          p.highlights.forEach(h => ul.appendChild(e('li','', h)));
+          block.appendChild(ul);
+        }
+        container.appendChild(block);
+      });
+
+      return container;
+    }
+
+    function renderCertifications(items) {
+      if (!items || !items.length) return null;
+      const container = e('div','section');
+      container.appendChild(renderSectionTitle('Certifications'));
+      items.forEach(c => container.appendChild(e('div','cert-item', `${c.title || ''}${c.issuer ? ' ('+c.issuer+')' : ''}${c.year ? ' — '+c.year : ''}`)));
+      return container;
+    }
+
+    function renderResume(data) {
+      const basics = data.basics || {};
+      document.getElementById('name').textContent = basics.name || '';
+      document.getElementById('role').textContent = basics.label || '';
+      document.getElementById('contact').innerHTML = renderContactBlock(basics);
+
+      const content = document.getElementById('content');
+      content.innerHTML = '';
+
+      // Skills
+      const skillsBlock = renderSkillsAndInterests(data);
+      if (skillsBlock) content.appendChild(skillsBlock);
+
+      // Professional Summary
+      if (data.summary) {
+        const sumSec = e('div','section');
+        sumSec.appendChild(renderSectionTitle('Professional Summary'));
+        sumSec.appendChild(e('div','muted', data.summary));
+        content.appendChild(sumSec);
+      }
+
+      // Core Competencies
+      const coreBlock = renderCoreCompetencies(data.coreCompetencies);
+      if (coreBlock) content.appendChild(coreBlock);
+
+      // Experience
+      const expBlock = renderExperience(data.experience);
+      if (expBlock) content.appendChild(expBlock);
+
+      // Education
+      const eduBlock = renderEducation(data.education);
+      if (eduBlock) content.appendChild(eduBlock);
+
+      // Projects
+      const projBlock = renderProjects(data.projects);
+      if (projBlock) content.appendChild(projBlock);
+
+      // Certifications
+      const certBlock = renderCertifications(data.certifications);
+      if (certBlock) content.appendChild(certBlock);
+
+      // Footer links
+      const links = [];
+      if (basics.website) {
+        const url = ensureAbsoluteUrl(basics.website);
+        links.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">${url.replace(/^https?:\/\//, '')}</a>`);
+      }
+      if (basics.linkedin) {
+        const url = ensureAbsoluteUrl(basics.linkedin);
+        links.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">LinkedIn</a>`);
+      }
+      if (basics.github) {
+        const url = ensureAbsoluteUrl(basics.github);
+        links.push(`<a href="${url}" target="_blank" rel="noopener noreferrer">GitHub</a>`);
+      }
+      if (links.length) content.appendChild(e('div','links', links.join(' · ')));
+    }
+
+  })();
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
