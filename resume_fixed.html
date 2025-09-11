@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resume — XYZ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Montserrat:wght@300;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --header-bg: #4b4b4b;
+    --header-text: #ffffff;
+  }
+
+  html,body{
+    height:100%; margin:0; padding:0;
+    background: var(--header-bg);
+    font-family: Montserrat, Arial, sans-serif;
+  }
+
+  .page{
+    width: 210mm;
+    height: 297mm;
+    margin:0 auto;
+    background:#fff;
+    position:relative;
+    overflow:hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Header */
+  .header{
+    width:100%;
+    height:36mm;
+    background: var(--header-bg);
+    color: var(--header-text);
+    text-align:center;
+    padding-top:6mm;
+  }
+  .photo-wrap{
+    width:20mm; height:20mm;
+    border-radius:50%; overflow:hidden;
+    margin:0 auto 2px;
+    background: var(--header-bg);
+  }
+  .photo-wrap img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .name{ font-family:'Merriweather',serif; font-size:20px; margin:1px 0 0; color:var(--header-text);}
+  .role{ font-size:12px; margin-top:1px; font-weight:600; color:var(--header-text);}
+  .contacts{ margin-top:2px; font-size:11px; display:flex; justify-content:center; gap:6px; flex-wrap:wrap; }
+
+  /* Content */
+  .content{
+    padding: 4mm 0 2mm 0;
+    font-size:12px;
+    line-height:1.35;
+    color:#111;
+  }
+
+  .section-divider{ border-top:0.3mm solid #111; margin:4px 0; width:100%; }
+  .section-title{ font-weight:700; font-size:12px; text-transform:uppercase; margin:2px 0; padding:0 3mm; }
+
+  .skills-dl{ display:grid; grid-template-columns:55mm 1fr; gap:2px 6px; margin-bottom:2px; padding:0 3mm; }
+  .skills-dl dt{ font-weight:700; font-size:12px }
+  .skills-dl dd{ margin:0; font-size:12px; color:#222 }
+
+  .job{ margin-bottom:4px; padding:0 3mm; }
+  .job-header{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:3px; }
+  .company{ font-weight:700; font-size:12px }
+  .meta{ font-size:11px; color:#444; }
+  .desc{ margin:2px 0; font-size:12px; color:#222 }
+  .job ul{ margin:1px 0 0 12px; font-size:11.5px }
+
+  .education,.projects,.certs{ padding:0 3mm; font-size:12px; }
+  .projects p,.certs p{ margin:1px 0; }
+</style>
+</head>
+<body>
+
+<div class="controls" style="display:flex;gap:6px;align-items:center;padding:8px;background:#f6f6f6;">
+  <label for="color">Header color</label>
+  <input id="color" type="color" value="#4b4b4b" />
+  <label for="textColor">Text color</label>
+  <input id="textColor" type="color" value="#ffffff" />
+  <button id="download">Download PDF</button>
+  <div style="flex:1"></div>
+</div>
+
+<div class="page" id="page">
+  <header class="header">
+    <div class="photo-wrap">
+      <img src="https://th.bing.com/th/id/OIP.Me_AqujgECGQ-2cLUY2QhgHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="photo">
+    </div>
+    <div class="name">XYZ</div>
+    <div class="role">Software Developer</div>
+    <div class="contacts">+91-7986811787 &nbsp; xyz@gmail.com &nbsp; LinkedIn</div>
+  </header>
+
+  <div class="content">
+    <div class="section-divider"></div>
+    <div class="section-title">Skills</div>
+    <dl class="skills-dl" id="skillsDL"></dl>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Professional Summary</div>
+    <p style="padding:0 3mm;">Experienced Software Developer with over 5 years of expertise in designing, developing, and deploying scalable web applications. Adept in Laravel, React, and cloud-based solutions with AWS and Docker. Skilled at building efficient APIs, optimizing performance, and ensuring secure data flows across applications. Strong communicator and mentor, with proven ability to lead cross-functional teams and deliver high-quality solutions under tight deadlines. Passionate about solving real-world business problems with modern technology stacks and continuous learning of DevOps practices, microservices, and system design.</p>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Core Competencies</div>
+    <p style="padding:0 3mm;">Full-Stack Development · Laravel · React · Express.js · Tailwind · System Design · Cloud DevOps · API Security · Agile Development</p>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Technical Experience</div>
+    <div class="job">
+      <div class="job-header"><div class="company">Alive Hire</div><div class="meta">May 2025 — Present</div></div>
+      <div class="desc">Led a team of 4 developers in creating a resume optimization platform for recruiters and job seekers.</div>
+      <ul>
+        <li>Built microservices for resume parsing and AI-driven keyword matching.</li>
+        <li>Improved system performance by 30% through code optimization.</li>
+        <li>Integrated third-party APIs for automated job posting.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header"><div class="company">Freelance</div><div class="meta">Feb 2025 — Present</div></div>
+      <div class="desc">Delivered multiple client solutions for SMEs across different industries.</div>
+      <ul>
+        <li>Developed a matrimonial platform with secure user authentication and chat system.</li>
+        <li>Built a Kanban task management app with drag-and-drop UI.</li>
+        <li>Deployed projects on AWS and integrated CI/CD pipelines.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header"><div class="company">Jobeyze Canada</div><div class="meta">Oct 2024 — Apr 2025</div></div>
+      <div class="desc">Worked on advanced resume builder features and intelligent candidate matching.</div>
+      <ul>
+        <li>Integrated AI models for cover letter generation.</li>
+        <li>Improved platform engagement by 45% with UI redesign.</li>
+        <li>Built dashboards with analytics for HR professionals.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-header"><div class="company">Bytecraft Studios</div><div class="meta">Jun 2024 — Sep 2024</div></div>
+      <div class="desc">Developed payment solutions and multi-role dashboards for enterprise clients.</div>
+      <ul>
+        <li>Enhanced a MERN-based marketplace with multilingual & multi-currency support.</li>
+        <li>Built reusable React components to speed up development by 25%.</li>
+        <li>Optimized MongoDB queries reducing response time by 40%.</li>
+      </ul>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Education</div>
+    <div class="education"><strong>ABC · B.Tech in Computer Science and Engineering</strong> — 2021–Expected 2025 · CGPA: 8.3</div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Personal Projects</div>
+    <div class="projects">
+      <p><strong>AudioHub</strong> — Built an e-commerce platform for premium audio products with a responsive UI. Launched a recommendation engine that increased retention by 60% and boosted conversions by 45%.</p>
+      <p><strong>BookSphere</strong> — Designed and developed a library management system using the MERN stack. Features included QR code-based entry, UPI fine collection, ISBN scanning, and role-based dashboards for librarians.</p>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Certifications</div>
+    <div class="certs">
+      <p>Full Stack Development (MERN Laravel) — 2023</p>
+      <p>AWS Certified Cloud Practitioner — 2024</p>
+      <p>Docker & Kubernetes Certification — 2024</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  const skills = {
+    "Frameworks":"Laravel, React, Bootstrap, Express.js, Tailwind CSS, React Native, Electron, Flutter, Django, jQuery, GSAP",
+    "Languages":"C++, Python, JavaScript, PHP",
+    "Databases":"MySQL, PostgreSQL, MongoDB",
+    "Cloud & DevOps":"AWS, Docker, Azure, GitHub Actions",
+    "Build & Tooling":"Git, Webpack, Babel",
+    "API Standards & Protocols":"REST, GraphQL, WebSockets"
+  };
+  const skillsDL = document.getElementById('skillsDL');
+  Object.keys(skills).forEach(k=>{
+    const dt=document.createElement('dt'); dt.textContent=k;
+    const dd=document.createElement('dd'); dd.textContent=skills[k];
+    skillsDL.appendChild(dt); skillsDL.appendChild(dd);
+  });
+
+  // Theme controls
+  const color = document.getElementById('color'), textColor = document.getElementById('textColor');
+  function applyTheme(bg,txt){
+    document.documentElement.style.setProperty('--header-bg', bg);
+    document.documentElement.style.setProperty('--header-text', txt);
+    document.querySelectorAll('.header').forEach(el=>el.style.background=bg);
+    document.querySelectorAll('.photo-wrap').forEach(el=>el.style.background=bg);
+  }
+  applyTheme(color.value,textColor.value);
+  color.addEventListener('input',()=>applyTheme(color.value,textColor.value));
+  textColor.addEventListener('input',()=>applyTheme(color.value,textColor.value));
+
+  // PDF export
+  document.getElementById('download').addEventListener('click',async()=>{
+    const page=document.getElementById('page');
+    const { jsPDF }=window.jspdf;
+    const mmW=210, mmH=297;
+    const canvas=await html2canvas(page,{scale:2,useCORS:true,scrollX:0,scrollY:0});
+    const imgData=canvas.toDataURL('image/jpeg',0.98);
+    const pdf=new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+    pdf.addImage(imgData,'JPEG',0,0,mmW,mmH);
+    pdf.save('resume_XYZ.pdf');
+  });
+</script>
+</body>
+</html> add more content in eduaction and graduation done in 2025 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

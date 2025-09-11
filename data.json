@@ -1,111 +1,55 @@
 {
-  "basics": {
-    "name": "Mohit Arora",
-    "label": "Software Developer",
-    "location": "India",
-    "email": "mohitarora321123@gmail.com",
-    "phone": "+91-7986811787",
-    "website": "https://portfolio.example.com",
-    "linkedin": "https://linkedin.com/in/mohitarora",
-    "github": "https://github.com/mohitarora"
+  "avatar": "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Fpng.pngtree.com%2Fpng-clipart%2F20230927%2Foriginal%2Fpngtree-man-avatar-image-for-profile-png-image_13001882.png",
+  "name": "Daryl Banks",
+  "title": "DRIVER",
+  "contacts": {
+    "email": "daryl.banks@email.com",
+    "address": "699 W Lehman Street, Phoenix, AZ 85016, United States",
+    "phone": "(602) 359 1424"
   },
-
-  "summary": "Experienced Software Developer with a robust background in full-stack development, specializing in Laravel, React, and modern web technologies. Proven track record of developing scalable applications and effective system designs.",
-
-  "coreCompetencies": [
-    "Full-Stack Development",
-    "Laravel",
-    "React",
-    "System Design",
-    "Cloud DevOps"
-  ],
-
-  "skills": [
-    { "name": "Frameworks – Laravel, React, Bootstrap, Express.js, Tailwind CSS, React Native, Electron, Flutter, Django, jQuery, GSAP" },
-    { "name": "Languages – C++, Python, JavaScript, PHP" },
-    { "name": "Databases – MySQL, PostgreSQL, MongoDB" },
-    { "name": "Cloud & DevOps – AWS, Docker" },
-    { "name": "Build & Tooling – Git" },
-    { "name": "API Standards & Protocols – REST" }
-  ],
-
-  "experience": [
+  "profile": "Experienced and reliable Driver with vast experience working in the transportation of goods and passengers. Adept in safe driving practices and traffic laws. Bringing forth a clean driving record as well as a career history full of satisfied customers and clients. Experienced in performing maintenance and minor repairs on vehicles. Committed to the safety and successful transportation of goods, passengers, and vehicles.",
+  "employment": [
     {
-      "company": "Alive Hire",
-      "position": "Technical Software Lead",
-      "startDate": "May 2025",
-      "endDate": "Present",
-      "summary": "Developed key modules for recruiters, employers, and vendors, enhancing platform functionality. Currently enhancing resume optimization features to improve user engagement.",
-      "highlights": [
-        "Keywords: AI Recruitment, SaaS, Full-Cycle Development"
+      "role": "Driver, Albert's Trucking Company",
+      "location": "Phoenix",
+      "period": "April 2015 – August 2019",
+      "items": [
+        "Performed vehicle inspections and maintenance prior to trips.",
+        "Carefully planned and traveled the fastest routes.",
+        "Loaded and unloaded vehicles carefully.",
+        "Provided excellent customer service to clients resulting in repeat clients."
       ]
     },
     {
-      "company": "Freelance Software Developer",
-      "position": "Freelance Software Developer",
-      "startDate": "Feb 2025",
-      "endDate": "Present",
-      "summary": "Developed a matrimonial platform and a Kanban board app, enhancing client business processes.",
-      "highlights": [
-        "Keywords: Laravel, Full-Stack Development, Client Projects"
-      ]
-    },
-    {
-      "company": "Jobeyze Canada",
-      "position": "Full Stack Developer",
-      "startDate": "October 7, 2024",
-      "endDate": "April 7, 2025",
-      "summary": "Integrated advanced features like resume and cover letter generation, and intelligent candidate selection.",
-      "highlights": [
-        "Keywords: AI Job Automation, Laravel, React"
-      ]
-    },
-    {
-      "company": "Bytecraft Studios",
-      "position": "Full Stack Developer",
-      "startDate": "June 23, 2024",
-      "endDate": "September 21, 2024",
-      "summary": "Created automated payment solutions and multi-role dashboards for Poonam Enterprises. Enhanced a MERN marketplace with multi-language and currency capabilities.",
-      "highlights": [
-        "Keywords: Web Development, Laravel, React, MERN"
+      "role": "Driver, Boars Transportation",
+      "location": "Phoenix",
+      "period": "September 2009 – March 2015",
+      "items": [
+        "Reached 700k accident free miles.",
+        "Was awarded Best Driver in 2011.",
+        "Safely and efficiently transported cargo to destinations.",
+        "Worked to achieve ultimate customer satisfaction."
       ]
     }
   ],
-
   "education": [
     {
-      "institution": "Indian Institute of Information Technology, Manipur",
-      "area": "B.Tech in Computer Science and Engineering",
-      "startDate": "2021",
-      "endDate": "Expected 2025",
-      "gpa": "8.3"
-    }
-  ],
-
-  "projects": [
-    {
-      "name": "AudioHub",
-      "stack": "Interactive E-Commerce Platform | Vue.js, Quasar, Node.js, Express.js, E-Commerce",
-      "description": "Developed AudioHub, an e-commerce platform for premium audio products with a responsive UI.",
-      "highlights": [
-        "Launched a recommendation system, boosting user retention by 60% and conversion rates by 45%.",
-        "Implemented a user-friendly recommendation system, increasing retention by 60% and conversions by 45%."
-      ]
+      "title": "Class B Commercial Driver's License",
+      "school": "Phoenix Driving School, Phoenix",
+      "period": "August 2009"
     },
     {
-      "name": "BookSphere",
-      "stack": "Modern Library Management System | MERN Stack, Library Management, QR Code",
-      "description": "Built a system for library management with QR code generation and fine collection via UPI. Enabled ISBN-based data extraction for efficient book tracking and organization.",
-      "highlights": [
-        "Developed QR code generation and fine collection features, streamlining library operations."
-      ]
+      "title": "High School Diploma",
+      "school": "Morris High School, Morris",
+      "period": "September 2005 – June 2009"
     }
   ],
-
-  "certifications": [
-    {
-      "title": "Full Stack Development (MERN Laravel)",
-      "year": "2023"
-    }
-  ]
+  "skills": [
+    {"name": "Hand-eye Coordination", "level": 85},
+    {"name": "Safe Driving Skills", "level": 95},
+    {"name": "Vehicle Dexterity", "level": 75},
+    {"name": "Ability to read maps", "level": 80},
+    {"name": "Customer Service Skills", "level": 70}
+  ],
+  "references": "Available upon request"
 }
