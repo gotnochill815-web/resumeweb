@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Resume — XYZ (No Border PDF)</title>
+
+<!-- Google font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<!-- html2canvas + jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+  body{background:#000;padding:0;margin:0;display:flex;flex-direction:column;align-items:center}
+  .download-btn{
+    background:#2e9cff;color:#fff;border:none;padding:10px 16px;border-radius:6px;font-size:15px;font-weight:600;cursor:pointer;margin:20px;
+  }
+  .download-btn:hover{background:#1b7ac9}
+
+  /* exact A4 sheet */
+  .paper{width:210mm;min-height:297mm;background:#fff;overflow:hidden} 
+  .columns{display:flex;flex-direction:row;height:100%}
+  .col-left{width:37%;background:#222;color:#fff;padding:26px 26px 28px 26px;display:flex;flex-direction:column;justify-content:space-between}
+  .col-right{width:63%;padding:30px 36px;color:#222;display:flex;flex-direction:column;justify-content:space-between}
+
+  /* Profile */
+  .profile{text-align:center}
+  /* change border color to match left column (no white ring) */
+  .avatar{width:180px;height:180px;border-radius:50%;overflow:hidden;margin:0 auto;border:4px solid #222;background:#222}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .name{margin-top:12px;font-size:26px;font-weight:700}
+  .role{font-size:15px;opacity:0.95;margin-top:6px}
+
+  /* Left sections */
+  .left-section{margin-top:22px}
+  .sec-title{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:10px}
+  .hex{width:32px;height:32px;background:#2e9cff;clip-path:polygon(50% 0%,93% 25%,93% 75%,50% 100%,7% 75%,7% 25%);display:flex;align-items:center;justify-content:center}
+  .hex i{color:#fff;font-size:13px}
+
+  .contact p{background:#fff;color:#222;padding:9px;border-radius:8px;margin-bottom:9px;display:flex;align-items:center;gap:10px;font-weight:600;font-size:13px}
+  .contact i{color:#2e9cff;min-width:20px;text-align:center}
+
+  .languages-list{display:flex;flex-direction:column;gap:8px}
+  .language-item{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600;color:#fff}
+  .language-item i{color:#2e9cff}
+
+  .test-list{display:flex;flex-direction:column;gap:6px;font-size:13px;color:#fff}
+  .test-list p{display:flex;align-items:center;gap:8px;opacity:0.95}
+  .test-list i{color:#2e9cff}
+
+  .skills-list{display:flex;flex-direction:column;gap:8px}
+  .skill{display:flex;gap:10px;align-items:center;font-weight:600;font-size:13px}
+  .skill i{color:#2e9cff}
+
+  .cert-list{display:flex;flex-direction:column;gap:8px;font-size:13px;color:#fff}
+  .cert-list p{opacity:0.95}
+
+  /* Right column typography reduced slightly for compactness but still readable */
+  .right-section{margin-bottom:16px}
+  .right-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;text-transform:uppercase;letter-spacing:0.4px;color:#111;margin-bottom:10px}
+  .right-title .hex{width:34px;height:34px}
+  .about p{font-size:13px;color:#444;line-height:1.55}
+  .edu-item,.job-item,.project{margin-bottom:10px}
+  .item-title{font-weight:700;color:#111;font-size:14.5px}
+  .item-sub{font-size:11.5px;color:#777;margin-top:4px}
+  .item-bullets{margin-top:8px;margin-left:16px;color:#444;font-size:12.8px;line-height:1.45}
+  .item-bullets li{margin-bottom:6px}
+
+  .project h4{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:700;margin-bottom:6px}
+  .project h4 i{color:#2e9cff}
+  .project ul{margin-left:16px;font-size:12.8px;color:#444;line-height:1.45}
+  .project ul li{margin-bottom:5px}
+
+  .small-list{margin-left:16px;color:#444;font-size:12.8px;line-height:1.45}
+  .small-list li{margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<button class="download-btn" id="downloadBtn"><i class="fa-solid fa-file-pdf"></i> Download PDF</button>
+
+<div class="paper" id="resume">
+  <div class="columns">
+    <!-- LEFT -->
+    <aside class="col-left">
+      <div>
+        <div class="profile">
+          <div class="avatar">
+            <!-- crossorigin present; script will attempt to inline before capture -->
+            <img id="avatarImg"
+                 src="https://th.bing.com/th/id/OIP.DUyYdfjanViqOuvRkLjcVAHaHa?w=175&h=180&c=7&r=0&o=7&pid=1.7&rm=3"
+                 alt="XYZ photo" crossorigin="anonymous">
+          </div>
+          <div class="name">XYZ</div>
+          <div class="role">Software Developer</div>
+        </div>
+        <!-- Contact -->
+        <div class="left-section contact">
+          <div class="sec-title"><div class="hex"><i class="fa-solid fa-address-card"></i></div>Contact</div>
+          <p><i class="fa-solid fa-phone"></i> +91-7986811787</p>
+          <p><i class="fa-solid fa-envelope"></i> xyz@gmail.com</p>
+          <p><i class="fa-brands fa-linkedin"></i> linkedin.com/in/xyz</p>
+          <p><i class="fa-solid fa-globe"></i> www.example.com</p>
+        </div>
+        <!-- Languages -->
+        <div class="left-section language">
+          <div class="sec-title"><div class="hex"><i class="fa-solid fa-language"></i></div>Languages</div>
+          <div class="languages-list">
+            <div class="language-item"><i class="fa-solid fa-comment"></i>English</div>
+            <div class="language-item"><i class="fa-solid fa-comment"></i>Hindi</div>
+            <div class="language-item"><i class="fa-solid fa-comment"></i>French</div>
+            <div class="language-item"><i class="fa-solid fa-book"></i>Latin</div>
+            <div class="language-item"><i class="fa-solid fa-globe"></i>NAS Language</div>
+          </div>
+        </div>
+        <!-- Test Scores -->
+        <div class="left-section tests">
+          <div class="sec-title"><div class="hex"><i class="fa-solid fa-clipboard-check"></i></div>Test Scores</div>
+          <div class="test-list">
+            <p><i class="fa-solid fa-graduation-cap"></i> GRE — 325 / 340</p>
+            <p><i class="fa-solid fa-language"></i> TOEFL — 110 / 120</p>
+            <p><i class="fa-solid fa-laptop-code"></i> LeetCode Rating — 1800+</p>
+            <p><i class="fa-solid fa-brain"></i> HackerRank — 5★ Problem Solving</p>
+            <p><i class="fa-solid fa-code"></i> Codeforces — Expert (1600+)</p>
+            <p><i class="fa-solid fa-book-open"></i> IELTS — Band 8.0</p>
+            <p><i class="fa-solid fa-award"></i> Kaggle — Competitions Expert</p>
+          </div>
+        </div>
+      </div>
+      <!-- Bottom: Skills & Certifications -->
+      <div>
+        <div class="left-section skills">
+          <div class="sec-title"><div class="hex"><i class="fa-solid fa-gears"></i></div>Skills</div>
+          <div class="skills-list">
+            <div class="skill"><i class="fa-solid fa-code"></i>Laravel, React, Express.js</div>
+            <div class="skill"><i class="fa-solid fa-mobile-screen-button"></i>Tailwind, React Native</div>
+            <div class="skill"><i class="fa-solid fa-desktop"></i>Electron, Flutter, Django</div>
+            <div class="skill"><i class="fa-solid fa-database"></i>MySQL, PostgreSQL, MongoDB</div>
+            <div class="skill"><i class="fa-solid fa-cloud"></i>AWS, Docker, Azure</div>
+            <div class="skill"><i class="fa-solid fa-toolbox"></i>Git, Webpack, Babel</div>
+          </div>
+        </div>
+        <div class="left-section certs">
+          <div class="sec-title"><div class="hex"><i class="fa-solid fa-certificate"></i></div>Certifications</div>
+          <div class="cert-list">
+            <p>Full Stack Development (MERN / Laravel) — 2023</p>
+            <p>AWS Certified Cloud Practitioner — 2024</p>
+            <p>Docker & Kubernetes Certification — 2024</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT -->
+    <main class="col-right">
+      <section class="right-section about">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-user"></i></div>About Me</div>
+        <p>Experienced Software Developer with 5+ years designing, building, and deploying scalable web applications. Skilled in full-stack development, API design, and cloud deployment. Strong collaborator who thrives under tight deadlines.</p>
+      </section>
+      <section class="right-section education">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-graduation-cap"></i></div>Education</div>
+        <div class="edu-item"><div class="item-title">ABC — B.Tech in Computer Science and Engineering</div><div class="item-sub">2021 — Expected 2025 · CGPA: 8.3</div></div>
+      </section>
+      <section class="right-section experience">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-briefcase"></i></div>Work Experience</div>
+        <div class="job-item"><div class="item-title">Alive Hire</div><div class="item-sub">May 2025 — Present</div>
+          <ul class="item-bullets"><li>Led a team building a resume optimization platform.</li><li>Developed AI keyword-matching microservices.</li><li>Improved system performance by 30%.</li></ul></div>
+        <div class="job-item"><div class="item-title">Freelance</div><div class="item-sub">Feb 2025 — Present</div>
+          <ul class="item-bullets"><li>Developed authentication, chat, and Kanban apps.</li><li>Deployed projects on AWS with CI/CD.</li><li>Delivered tailored solutions for SMEs.</li></ul></div>
+      </section>
+      <section class="right-section projects">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-lightbulb"></i></div>Projects</div>
+        <div class="project"><h4><i class="fa-solid fa-headphones"></i> AudioHub</h4><ul><li>E-commerce platform for audio products.</li><li>Recommendation engine boosted conversions 45%.</li><li>Integrated secure payments & analytics.</li></ul></div>
+        <div class="project"><h4><i class="fa-solid fa-book"></i> BookSphere</h4><ul><li>Library management system (MERN stack).</li><li>QR check-in/out & ISBN scanning.</li><li>Librarian dashboards with analytics.</li></ul></div>
+        <div class="project"><h4><i class="fa-solid fa-user"></i> Face Scanner</h4><ul><li>Facial recognition with OpenCV + deep learning.</li><li>Trained on large datasets for accuracy.</li><li>Deployed as desktop verification tool.</li></ul></div>
+        <div class="project"><h4><i class="fa-solid fa-robot"></i> AI Chatbot</h4><ul><li>NLP chatbot answering FAQs in real time.</li><li>Linked to knowledge base for accuracy.</li><li>Reduced support load by 40%.</li></ul></div>
+        <div class="project"><h4><i class="fa-solid fa-chart-line"></i> Finance Tracker</h4><ul><li>Built personal finance tracking web app.</li><li>Integrated expense categorization & budgeting tools.</li><li>Added visual reports with charts & graphs.</li></ul></div>
+      </section>
+      <section class="right-section awards">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-trophy"></i></div>Awards & Achievements</div>
+        <ul class="small-list"><li>First prize — University Hackathon (2023)</li><li>Dean’s List — Academic Year 2022</li></ul>
+      </section>
+      <section class="right-section pubs">
+        <div class="right-title"><div class="hex"><i class="fa-solid fa-file-lines"></i></div>Publications</div>
+        <ul class="small-list"><li>“Optimizing Web APIs for Cloud Performance” — IJCS 2024</li><li>“AI-Driven Resume Matching” — IEEE 2023</li></ul>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  // Best-effort inline for external images (works if the remote host allows CORS)
+  async function inlineExternalImages(container) {
+    const imgs = container.querySelectorAll('img');
+    for (const img of imgs) {
+      try {
+        if (!img.src) continue;
+        if (img.src.startsWith('data:')) continue; // already inline
+        const res = await fetch(img.src, { mode: 'cors' });
+        if (!res.ok) throw new Error('fetch failed');
+        const blob = await res.blob();
+        const dataURL = await new Promise(resolve => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.readAsDataURL(blob);
+        });
+        img.src = dataURL;
+      } catch (err) {
+        console.warn('Could not inline image (CORS?), leaving as-is:', img.src, err);
+      }
+    }
+  }
+
+  async function downloadPDFSinglePage() {
+    const { jsPDF } = window.jspdf;
+    const resume = document.getElementById('resume');
+    await document.fonts.ready;
+
+    await inlineExternalImages(resume);
+    await new Promise(r => setTimeout(r, 200));
+
+    const canvas = await html2canvas(resume, { scale: 2, useCORS: true });
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+
+    pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
+    pdf.save("resume.pdf");
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('downloadBtn');
+    btn.disabled = true;
+    btn.textContent = 'Preparing PDF…';
+    try {
+      await downloadPDFSinglePage();
+    } catch (e) {
+      console.error(e);
+      alert('PDF generation failed — check console for details.');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = '<i class="fa-solid fa-file-pdf"></i> Download PDF';
+    }
+  });
+</script>
+</body>
+</html>
+
+
+
+
+
