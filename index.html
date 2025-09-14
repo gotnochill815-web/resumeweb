@@ -1,270 +1,380 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Mohit Arora — Resume</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>XYZ — Resume (with Achievements + Export)</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&family=Montserrat:wght@300;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#1e73be;
+      --muted:#6e6e6e;
+      --paper-width:900px;
+      --card-bg:#ffffff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:#eef3f6;
+      font-family:"Georgia","Times New Roman",serif;
+      color:#222;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      padding:28px;
+    }
 
-<style>
-  :root{
-    --header-bg: #4b4b4b;
-    --header-text: #ffffff;
-    --divider: #111;
-  }
-  html,body{height:100%;margin:0;padding:0;background:#fff;font-family:'Montserrat',Arial,Helvetica,sans-serif;color:#111}
-  .controls{display:flex;gap:10px;align-items:center;padding:10px;background:#f6f6f6;border-bottom:1px solid #eee}
-  .controls label{font-size:13px;color:#333}
-  .controls input[type=color]{width:36px;height:28px;border:0;background:transparent;cursor:pointer}
-  .controls button{padding:8px 12px;border-radius:6px;border:1px solid #bbb;background:#fff;cursor:pointer}
+    /* Export control */
+    .tools{
+      width:var(--paper-width);
+      margin-bottom:12px;
+      display:flex;
+      justify-content:flex-end;
+    }
+    button.export-btn{
+      background:#1e73be;
+      color:#fff;
+      border:0;
+      padding:10px 14px;
+      border-radius:6px;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow:0 6px 18px rgba(0,0,0,0.08);
+    }
+    button.export-btn[disabled]{ opacity:.6; cursor:default; }
 
-  /* A4 page container (visual). html2pdf will use this element directly */
-  .page{
-    width:210mm; min-height:297mm; margin:12px auto; background:#fff; box-shadow:0 10px 30px rgba(0,0,0,0.07);
-    overflow:hidden;
-  }
+    /* resume card */
+    .card{
+      width:var(--paper-width);
+      background:var(--card-bg);
+      border-radius:10px;
+      box-shadow:0 18px 45px rgba(18,30,45,0.08);
+      padding:28px;
+      position:relative;
+      overflow:visible;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:28px;
+    }
 
-  /* header */
-  .header{
-    background:var(--header-bg); color:var(--header-text); text-align:center; padding:54px 36px 20px;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-  }
-  /* avatar circle: image fills circle (no whitespace). thin ring */
-  .avatar{ width:106px; height:106px; border-radius:50%; overflow:hidden; margin:-84px auto 10px; border:6px solid rgba(255,255,255,0.95); background:transparent; }
-  .avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+    /* corner background: try local PNG first, inline SVG fallback second */
+    .card::before, .card::after{
+      content:"";
+      position:absolute;
+      background-repeat:repeat;
+      background-size:220px 120px;
+      opacity:0.12;
+      pointer-events:none;
+      z-index:0;
+    }
+    .card::before{
+      right:-48px; bottom:-40px; width:540px; height:420px; transform:rotate(3deg);
+      background-image: url("assets/bg-pattern.png"),
+        url("data:image/svg+xml;utf8,\
+          <svg xmlns='http://www.w3.org/2000/svg' width='200' height='120'>\
+            <defs><pattern id='p' width='80' height='60' patternUnits='userSpaceOnUse'>\
+              <g fill='none' stroke='%230b4b79' stroke-opacity='0.07' stroke-width='1'>\
+                <rect x='0' y='0' width='20' height='20'/>\
+                <rect x='40' y='20' width='40' height='40' rx='6'/>\
+              </g></pattern></defs>\
+            <rect width='100%' height='100%' fill='url(%23p)'/></svg>");
+    }
+    .card::after{
+      left:-36px; bottom:-20px; width:420px; height:320px; transform:rotate(-6deg);
+      background-image: url("assets/bg-pattern.png"),
+        url("data:image/svg+xml;utf8,\
+          <svg xmlns='http://www.w3.org/2000/svg' width='200' height='120'>\
+            <defs><pattern id='p2' width='80' height='60' patternUnits='userSpaceOnUse'>\
+              <g fill='none' stroke='%230b4b79' stroke-opacity='0.05' stroke-width='1'>\
+                <rect x='0' y='0' width='20' height='20'/>\
+                <rect x='40' y='20' width='40' height='40' rx='6'/>\
+              </g></pattern></defs>\
+            <rect width='100%' height='100%' fill='url(%23p2)'/></svg>");
+    }
+    .card > *{ position:relative; z-index:1; }
 
-  .name{ font-family:'Merriweather',serif; font-size:28px; margin:6px 0 0; color:var(--header-text); }
-  .role{ font-size:12px; margin-top:6px; font-weight:600; color:var(--header-text); opacity:0.95; }
-  .contacts{ margin-top:10px; color:var(--header-text); font-size:13px; opacity:0.95; display:flex; justify-content:center; gap:18px; flex-wrap:wrap; }
+    /* header */
+    .header{ grid-column:1 / -1; display:flex; gap:22px; align-items:flex-start; border-bottom:1px solid #e9eef2; padding-bottom:18px; margin-bottom:16px; }
+    .photo{ width:170px; height:170px; border-radius:50%; overflow:hidden; border:6px solid #fff; box-shadow:0 10px 30px rgba(18,30,45,0.12); flex:0 0 170px; background:#fff; }
+    .photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .profile-info{ flex:1; padding-top:6px; }
+    .name{ font-size:30px; margin:0 0 6px 0; letter-spacing:0.4px; font-weight:700; }
+    .role{ color:var(--muted); font-style:italic; margin-bottom:12px; }
+    .summary{ color:#44525a; font-size:14px; line-height:1.6; }
 
-  .hr{ height:2px; background:var(--divider); margin:14px 40px 0; }
+    /* contact strip */
+    .contacts{ grid-column:1 / -1; display:flex; flex-wrap:wrap; gap:14px; align-items:center; margin-top:14px; background:#f6fbfc; border:1px solid #e9eef2; padding:10px 12px; border-radius:6px; color:#2f506f; font-size:13px; }
+    .contacts a{ color:inherit; text-decoration:underline; }
 
-  /* content */
-  .content{ padding:18px 42px 36px; font-size:13px; color:#111; line-height:1.45; }
-  .section-title{ font-weight:700; font-size:13px; text-transform:uppercase; margin:10px 0 8px; }
+    .left{ padding-right:6px; }
+    .right{ padding-left:6px; }
 
-  /* divider line above each section (thin) */
-  .section-divider{ height:0; border-top:1.5px solid var(--divider); margin:12px 0; }
+    .section-title{ color:var(--accent); font-size:15px; letter-spacing:0.6px; font-weight:800; margin:0 0 12px 0; border-bottom:1px solid #eee; padding-bottom:8px; }
 
-  /* Skills as definition list: label left, value right */
-  .skills-dl{ display:grid; grid-template-columns: 180px 1fr; column-gap:20px; row-gap:8px; align-items:start; margin:6px 0 12px; }
-  .skills-dl dt{ font-weight:700; padding-right:6px; color:#111; }
-  .skills-dl dd{ margin:0; color:#222; }
+    .job{ margin-bottom:14px; }
+    .job-title{ font-weight:700; font-size:15px; margin-bottom:4px; }
+    .job-sub{ font-style:italic; color:var(--muted); margin-bottom:6px; }
+    ul.bullets{ margin:6px 0 0 20px; line-height:1.5; font-size:13px; color:#303233; }
 
-  /* job block */
-  .job{ margin-bottom:10px; }
-  .job .role{ font-weight:700; font-size:13px; }
-  .job .meta{ float:right; font-size:12px; color:#444; }
-  .job .company{ font-size:12px; color:#222; margin-top:2px; margin-bottom:6px; clear:both; }
+    .project{ margin-bottom:14px; }
+    .proj-title{ font-weight:700; margin-bottom:6px; }
 
-  ul{ margin:6px 0 10px 18px; }
-  .education{ margin-bottom:12px; }
+    .skill-badges{ display:flex; flex-wrap:wrap; gap:10px 8px; }
+    .badge{ background:#dbeefc; color:#0b4b79; padding:6px 10px; border-radius:8px; font-weight:700; font-size:13px; display:inline-block; }
 
-  /* skills bars (if present) */
-  .skills-bars{ display:grid; grid-template-columns:1fr 1fr; gap:12px 24px; margin-top:8px; }
-  .skill{ margin-bottom:8px }
-  .skill .label{ font-size:13px; margin-bottom:6px; }
-  .bar{ height:10px; background:#eaeaea; border-radius:6px; overflow:hidden; }
-  .bar .fill{ height:100%; width:0; background:linear-gradient(90deg,#2b2b2b,#6b6b6b); border-radius:6px; }
+    .muted{ color:var(--muted); font-size:13px; line-height:1.45; }
+    .muted em{ display:block; font-style:italic; color:#4a6c8d; margin-top:4px; }
 
-  @media (max-width:720px){
-    .skills-dl{ grid-template-columns: 1fr; }
-    .job .meta{ float:none; display:block; margin-top:6px; }
-    .page{ width:100%; margin:0; box-shadow:none; }
-  }
+    .achievements .muted{ margin-bottom:8px; }
 
-  @media print{ .controls{ display:none } }
-</style>
+    @media print{
+      body{ background:white; padding:0; }
+      .card{ box-shadow:none; border-radius:0; padding:14px; width:100%; }
+      .tools{ display:none; }
+    }
+
+    @media (max-width:920px){
+      .card{ grid-template-columns:1fr; padding:18px; }
+      .photo{ width:120px; height:120px; flex:0 0 120px; }
+      .contacts{ font-size:12.5px; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="controls" aria-hidden="false">
-    <label for="color">Header color</label>
-    <input id="color" type="color" value="#4b4b4b" />
-    <label for="textColor">Text color</label>
-    <input id="textColor" type="color" value="#ffffff" />
-    <button id="download">Download PDF</button>
-    <div style="flex:1"></div>
-    <small style="color:#666">A4 PDF (zero margins) — colors baked into PDF</small>
+  <div class="tools">
+    <button class="export-btn" id="exportLongPdf">Export → Long PDF</button>
   </div>
 
-  <div class="page" id="page">
-    <header class="header" id="header">
-      <div class="avatar" id="avatarWrap"><img id="avatar" alt="avatar" src="https://th.bing.com/th/id/OIP.Me_AqujgECGQ-2cLUY2QhgHaHa?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3"></div>
-      <div class="name" id="nameText">Mohit Arora</div>
-      <div class="role" id="roleText">Software Developer</div>
-      <div class="contacts" id="contactsRow">
-        <span>+91-7986811787</span>
-        <span>mohitarora321123@gmail.com</span>
-        <span>LinkedIn · portfolio.example.com</span>
+  <main id="resumeCard" class="card" role="document" aria-label="Resume — XYZ">
+
+    <!-- header -->
+    <header class="header">
+      <div class="photo" aria-hidden="true">
+        <!-- primary local: assets/pfp.png. If missing, fallback to remote Bing image -->
+        <img src="assets/pfp.png"
+             alt="Profile photo of XYZ"
+             onerror="this.onerror=null; this.src='https://th.bing.com/th/id/OIP.DUyYdfjanViqOuvRkLjcVAHaHa?w=164&h=180&c=7&r=0&o=7&pid=1.7&rm=3'">
       </div>
-      <div class="hr"></div>
+
+      <div class="profile-info">
+        <h1 class="name">XYZ</h1>
+        <div class="role">Software Developer</div>
+        <div class="summary">
+          Experienced Software Developer with 5+ years of hands-on experience designing, building and launching scalable web applications.
+          I design robust APIs, optimise system performance, and implement resilient CI/CD pipelines. I mentor junior engineers, collaborate across
+          product and design teams, and translate business requirements into pragmatic technical solutions. Recent focus: cloud-native architecture,
+          performance tuning and production ML pipelines.
+        </div>
+      </div>
     </header>
 
-    <section class="content" id="content">
-      <!-- SKILLS -->
-      <div class="section-divider"></div>
-      <div class="section-title">Skills</div>
+    <!-- contact -->
+    <div class="contacts" role="region" aria-label="Contact information">
+      <div>📧 <a href="mailto:xyz@gmail.com">xyz@gmail.com</a></div>
+      <div>📱 +91-7986811787</div>
+      <div>📍 City, Country</div>
+      <div>🔗 <a href="#" target="_blank" rel="noreferrer">linkedin.com/in/xyz</a></div>
+    </div>
 
-      <dl class="skills-dl" id="skillsDL">
-        <!-- injected by JS -->
-      </dl>
+    <!-- LEFT column -->
+    <section class="left" aria-labelledby="work">
+      <div>
+        <h2 class="section-title" id="work">WORK EXPERIENCE</h2>
 
-      <!-- PROFESSIONAL SUMMARY -->
-      <div class="section-divider"></div>
-      <div class="section-title">Professional Summary</div>
-      <p id="summary">
-        Experienced Software Developer with a robust background in full-stack development, specializing in Laravel, React, and modern web technologies.
-        Proven track record of developing scalable applications and effective system designs.
-      </p>
+        <div class="job">
+          <div class="job-title">Alive Hire</div>
+          <div class="job-sub">Resume Optimization Platform — May 2025 – Present</div>
+          <ul class="bullets">
+            <li>Led a team of 4 developers building a resume optimization platform used by recruiters.</li>
+            <li>Designed backend services (Python/FastAPI) and automated ETL for parsing resumes.</li>
+            <li>Improved API response times by 30% through query optimization and caching.</li>
+          </ul>
+        </div>
 
-      <!-- CORE COMPETENCIES -->
-      <div class="section-divider"></div>
-      <div class="section-title">Core Competencies</div>
-      <p id="competencies">Full-Stack Development · Laravel · React · System Design · Cloud DevOps</p>
-
-      <!-- TECHNICAL EXPERIENCE -->
-      <div class="section-divider"></div>
-      <div class="section-title">Technical Experience</div>
-
-      <div class="job">
-        <div class="role">Technical Software Lead</div>
-        <div class="meta">May 2025 — Present</div>
-        <div class="company">Alive Hire</div>
-        <div style="clear:both"></div>
-        <p>Developed key modules for recruiters, employers, and vendors, enhancing platform functionality. Currently enhancing resume optimization features to improve user engagement.</p>
-        <ul><li>Keywords: AI Recruitment, SaaS, Full-Cycle Development</li></ul>
+        <div class="job">
+          <div class="job-title">Freelance</div>
+          <div class="job-sub">Independent Projects — Feb 2025 – Present</div>
+          <ul class="bullets">
+            <li>Delivered full-stack solutions (auth, chat, Kanban) and production deployments on AWS.</li>
+            <li>Implemented CI/CD pipelines and monitoring to improve release reliability.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="job">
-        <div class="role">Freelance Software Developer</div>
-        <div class="meta">Feb 2025 — Present</div>
-        <div class="company">Freelance Software Developer</div>
-        <div style="clear:both"></div>
-        <p>Developed a matrimonial platform and a Kanban board app, enhancing client business processes.</p>
-        <ul><li>Keywords: Laravel, Full-Stack Development, Client Projects</li></ul>
+      <div style="margin-top:18px;">
+        <h2 class="section-title">PROJECTS</h2>
+
+        <div class="project">
+          <div class="proj-title">AudioHub</div>
+          <ul class="bullets">
+            <li>E-commerce platform for audio products; recommendation engine boosted conversions ~45%.</li>
+            <li>Integrated secure payments & analytics.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="proj-title">BookSphere</div>
+          <ul class="bullets">
+            <li>Library management system (MERN); QR check-in/out & ISBN scanning.</li>
+            <li>Librarian dashboards with analytics.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="proj-title">Face Scanner</div>
+          <ul class="bullets">
+            <li>Facial recognition using OpenCV + deep learning; deployed as a desktop verification tool.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="proj-title">AI Chatbot</div>
+          <ul class="bullets">
+            <li>NLP chatbot answering FAQs in real-time; linked to a knowledge base and vector search.</li>
+          </ul>
+        </div>
+
+        <div class="project">
+          <div class="proj-title">Finance Tracker</div>
+          <ul class="bullets">
+            <li>Personal finance tracking web app with expense categorization, budgeting and visual reports.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="job">
-        <div class="role">Full Stack Developer</div>
-        <div class="meta">October 7, 2024 — April 7, 2025</div>
-        <div class="company">Jobeyze Canada</div>
-        <div style="clear:both"></div>
-        <p>Integrated advanced features like resume and cover letter generation, and intelligent candidate selection.</p>
-        <ul><li>Keywords: AI Job Automation, Laravel, React</li></ul>
+      <div style="margin-top:18px;">
+        <h2 class="section-title" id="education">EDUCATION</h2>
+        <div class="job">
+          <div class="job-title">Harvard Business School — MBA</div>
+          <div class="muted">2026 – 2028 | Strategy & Leadership</div>
+        </div>
+        <div class="job" style="margin-top:8px;">
+          <div class="job-title">ABC — B.Tech in Computer Science and Engineering</div>
+          <div class="muted">2021 – Expected 2025 | CGPA: 8.3</div>
+        </div>
       </div>
-
-      <div class="job">
-        <div class="role">Full Stack Developer</div>
-        <div class="meta">June 23, 2024 — September 21, 2024</div>
-        <div class="company">Bytecraft Studios</div>
-        <div style="clear:both"></div>
-        <p>Created automated payment solutions and multi-role dashboards for Poonam Enterprises. Enhanced a MERN marketplace with multi-language and currency capabilities.</p>
-        <ul><li>Keywords: Web Development, Laravel, React, MERN</li></ul>
-      </div>
-
-      <!-- EDUCATION -->
-      <div class="section-divider"></div>
-      <div class="section-title">Education</div>
-      <div class="education">
-        <strong>Indian Institute of Information Technology, Manipur · B.Tech in Computer Science and Engineering</strong>
-        <span style="float:right">2021 — Expected 2025 · CGPA: 8.3</span>
-        <div style="clear:both"></div>
-      </div>
-
-      <!-- PROJECTS -->
-      <div class="section-divider"></div>
-      <div class="section-title">Personal Projects</div>
-      <div class="projects">
-        <strong>AudioHub</strong>
-        <p>Interactive E-Commerce Platform | Vue.js, Quasar, Node.js, Express.js — Launched recommendation system improving retention & conversion.</p>
-
-        <strong>BookSphere</strong>
-        <p>Modern Library Management System | MERN Stack — QR code generation & UPI fine collection features; ISBN-based data extraction.</p>
-      </div>
-
-      <!-- CERTIFICATIONS -->
-      <div class="section-divider"></div>
-      <div class="section-title">Certifications</div>
-      <p>Full Stack Development (MERN Laravel) — 2023</p>
-
-      <!-- footer small -->
-      <div style="height:18px"></div>
     </section>
-  </div>
 
-<!-- html2pdf -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- RIGHT sidebar -->
+    <aside class="right" aria-labelledby="sidebar">
+      <div>
+        <h2 class="section-title">EXPERTISE &amp; SKILLS</h2>
+        <div class="skill-badges" role="list">
+          <span class="badge" role="listitem">Laravel</span>
+          <span class="badge" role="listitem">React</span>
+          <span class="badge" role="listitem">Express.js</span>
+          <span class="badge" role="listitem">Tailwind</span>
+          <span class="badge" role="listitem">React Native</span>
+          <span class="badge" role="listitem">Flutter</span>
+          <span class="badge" role="listitem">Django</span>
+          <span class="badge" role="listitem">MongoDB</span>
+          <span class="badge" role="listitem">MySQL</span>
+          <span class="badge" role="listitem">PostgreSQL</span>
+          <span class="badge" role="listitem">AWS</span>
+          <span class="badge" role="listitem">Docker</span>
+          <span class="badge" role="listitem">Git</span>
+        </div>
+      </div>
 
-<script>
-  // Data (from resume444.pdf)
-  const skills = {
-    "Frameworks": "Laravel, React, Bootstrap, Express.js, Tailwind CSS, React Native, Electron, Flutter, Django, jQuery, GSAP",
-    "Languages": "C++, Python, JavaScript, PHP",
-    "Databases": "MySQL, PostgreSQL, MongoDB",
-    "Cloud & DevOps": "AWS, Docker",
-    "Build & Tooling": "Git",
-    "API Standards & Protocols": "REST"
-  };
+      <div style="margin-top:20px;">
+        <h2 class="section-title">CERTIFICATIONS AND MEMBERSHIPS</h2>
+        <div class="muted"><strong>Member</strong> — Global CIO Forum (2018 – Present)</div>
+        <div class="muted"><strong>CIPP</strong> — Certified Information Privacy Professional<br><em>Issued by IAPP</em></div>
+        <div class="muted"><strong>CSM</strong> — Certified ScrumMaster<br><em>Issued by Scrum Alliance</em></div>
+        <div class="muted"><strong>CGEIT</strong> — Governance of Enterprise IT<br><em>Issued by ISACA</em></div>
+        <div class="muted"><strong>CISSP</strong> — Info Systems Security Professional<br><em>Issued by ISC²</em></div>
+        <div class="muted"><strong>ITIL Master</strong><br><em>Issued by AXELOS</em></div>
+      </div>
 
-  // Render skills dt/dd
-  const skillsDL = document.getElementById('skillsDL');
-  Object.keys(skills).forEach(k=>{
-    const dt = document.createElement('dt'); dt.textContent = k;
-    const dd = document.createElement('dd'); dd.textContent = skills[k];
-    skillsDL.appendChild(dt); skillsDL.appendChild(dd);
-  });
+      <div style="margin-top:20px;">
+        <h2 class="section-title">LANGUAGES</h2>
+        <div class="muted"><strong>English</strong> — <em>Native or Bilingual Proficiency</em></div>
+        <div class="muted"><strong>Urdu</strong> — <em>Native or Bilingual Proficiency</em></div>
+        <div class="muted"><strong>French</strong> — <em>Professional Working Proficiency</em></div>
+      </div>
 
-  // Header color picker
-  const color = document.getElementById('color'), textColor = document.getElementById('textColor');
-  function applyTheme(bg, txt){
-    document.documentElement.style.setProperty('--header-bg', bg);
-    document.documentElement.style.setProperty('--header-text', txt);
-    // maintain avatar ring contrast
-    document.querySelectorAll('.avatar').forEach(a => a.style.borderColor = 'rgba(255,255,255,0.95)');
-  }
-  // load saved
-  const saved = localStorage.getItem('resume_theme_v2');
-  if(saved){
-    const s = JSON.parse(saved);
-    color.value = s.bg || color.value; textColor.value = s.txt || textColor.value;
-    applyTheme(color.value, textColor.value);
-  } else applyTheme(color.value, textColor.value);
+      <div style="margin-top:20px;">
+        <h2 class="section-title">ACHIEVEMENTS</h2>
+        <div class="achievements">
+          <div class="muted"><strong>Winner</strong> — Google Hackathon 2025 (Built finance AI assistant)</div>
+          <div class="muted"><strong>Dean’s List</strong> — ABC University (2022, 2023)</div>
+          <div class="muted"><strong>Top 5%</strong> — LeetCode Global Contest #389</div>
+          <div class="muted"><strong>Open Source Contributor</strong> — Contributed to 3 major OSS projects (performance & docs)</div>
+          <div class="muted"><strong>Scholarship</strong> — ABC University Merit Scholarship (2021)</div>
+          <div class="muted"><strong>Speaker</strong> — “Scaling APIs” — TechConf 2024 (panel speaker)</div>
+          <div class="muted"><strong>Published</strong> — Article on API Performance, TechJournal (2023)</div>
+          <div class="muted"><strong>Volunteer Mentor</strong> — Local coding bootcamp; helped 30+ students build portfolios</div>
+        </div>
+      </div>
+    </aside>
 
-  color.addEventListener('input', ()=>applyTheme(color.value, textColor.value));
-  textColor.addEventListener('input', ()=>applyTheme(color.value, textColor.value));
-  color.addEventListener('change', ()=> localStorage.setItem('resume_theme_v2', JSON.stringify({bg:color.value,txt:textColor.value})));
-  textColor.addEventListener('change', ()=> localStorage.setItem('resume_theme_v2', JSON.stringify({bg:color.value,txt:textColor.value})));
+  </main>
 
-  // prefer local 78.png if available
-  (function tryLocal(){
-    try {
-      fetch('./78.png', { method:'HEAD' }).then(r=>{
-        if(r && r.ok) document.getElementById('avatar').src = './78.png';
-      }).catch(()=>{/* ignore */});
-    } catch(e){}
-  })();
+  <!-- scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-  // Download PDF using html2pdf with margin 0
-  document.getElementById('download').addEventListener('click', ()=>{
-    const element = document.getElementById('page');
-    const prevShadow = element.style.boxShadow;
-    element.style.boxShadow = 'none'; // remove shadow from canvas
+  <script>
+    const { jsPDF } = window.jspdf;
 
-    const opt = {
-      margin:       0,
-      filename:     'resume_mohit_arora.pdf',
-      image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true, logging: false },
-      jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    document.getElementById('exportLongPdf').addEventListener('click', async () => {
+      const resume = document.getElementById('resumeCard');
+      const btn = document.getElementById('exportLongPdf');
+      const originalText = btn.textContent;
+      btn.textContent = 'Rendering PDF…';
+      btn.disabled = true;
 
-    html2pdf().set(opt).from(element).save().finally(()=> element.style.boxShadow = prevShadow);
-  });
-</script>
+      try {
+        // Capture with backgrounds; increase scale for better quality
+        const canvas = await html2canvas(resume, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: null
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const imgW = canvas.width;
+        const imgH = canvas.height;
+
+        // Create single-page PDF sized to canvas (px units)
+        const pdf = new jsPDF({
+          unit: 'px',
+          format: [imgW, imgH],
+          compress: true
+        });
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgW, imgH);
+        pdf.save('XYZ-resume-long.pdf');
+      } catch (err) {
+        console.error(err);
+        alert('Export failed — check console for details.');
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
